@@ -16,6 +16,12 @@ exports.displayLastWorks = function(req, res, next) {
 exports.editKeyAcl = function(req, res, next) {
     var key = req.body.key;
     var acl = req.body.acl;
+
+    // super stupid security check, never trust your client
+    if(acl !== 'private' && acl !== 'public-read' || key.indexOf('digitalwork') < 0) {
+        res.send(400, 'Don\t be evil');
+    }
+
     awsctrl.qSetAclForKey(key, acl)
         .then(function() {
             console.log('Changed ACL to ' + acl);
