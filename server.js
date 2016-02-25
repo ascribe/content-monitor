@@ -15,6 +15,7 @@ app.use(bodyParser());
 app.use(methodOverride());
 
 router.get('/', routes.displayLastWorks);
+router.post('/keys', routes.editKeyAcl);
 
 app.use('/', router);
 

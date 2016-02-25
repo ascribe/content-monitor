@@ -7,22 +7,32 @@ block content
         table
             thead
                 tr
+                    th Piece
                     th Title
                     th Registered
                     th User
                     th Format
                     th S3 Key
-                    th Actions
+                    th Private
+                    th Public
             tbody
                 each piece in pieces
                     tr
+                        td: a(href='https://www.ascribe.io/app/pieces/' + piece.id + '/', target='_blank') Piece on Ascribe
                         td !{piece.title}
                         td !{piece.email}
                         td !{piece.datetime_registered}
                         td
                             !{piece.digital_work_file.split('.').pop()}
                         td(style='padding-right:1em')
-                            a(href='https://d1qjsxua1o9x03.cloudfront.net/' + piece.digital_work_file, target='_blank') Link to file
+                            a(href='https://ascribe0.s3.amazonaws.com/' + piece.digital_work_file, target='_blank') Link to file
                         td
-                            a(href='/keys?key=' + piece.digital_work_file + '&acl=private' style='padding-right: 1em') Make private
-                            a(href='/keys?key=' + piece.digital_work_file + '&acl=public')  Make public
+                            form(method='post', action='keys')
+                                input(type='hidden', name='key' value=piece.digital_work_file)
+                                input(type='hidden', name='acl' value='private')
+                                input(type='submit', value='Make Private')
+                        td
+                            form(method='post', action='keys')
+                                input(type='hidden', name='key' value=piece.digital_work_file)
+                                input(type='hidden', name='acl' value='public-read')
+                                input(type='submit', value='Make Public')
