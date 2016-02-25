@@ -1,0 +1,28 @@
+extends layout
+
+block content
+    h1 Anime Destroyer 5.0
+    p.text Displays all pieces registered in the last 48h.
+    div
+        table
+            thead
+                tr
+                    th Title
+                    th Registered
+                    th User
+                    th Format
+                    th S3 Key
+                    th Actions
+            tbody
+                each piece in pieces
+                    tr
+                        td !{piece.title}
+                        td !{piece.email}
+                        td !{piece.datetime_registered}
+                        td
+                            !{piece.digital_work_file.split('.').pop()}
+                        td(style='padding-right:1em')
+                            a(href='https://d1qjsxua1o9x03.cloudfront.net/' + piece.digital_work_file, target='_blank') Link to file
+                        td
+                            a(href='/keys?key=' + piece.digital_work_file + '&acl=private' style='padding-right: 1em') Make private
+                            a(href='/keys?key=' + piece.digital_work_file + '&acl=public')  Make public

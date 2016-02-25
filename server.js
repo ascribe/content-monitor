@@ -1,20 +1,20 @@
-var express = require('express')
-    , morgan = require('morgan')
-    , bodyParser = require('body-parser')
-    , methodOverride = require('method-override')
-    , app = express()
-    , port = process.env.PORT || 3000
-    , router = express.Router();
+require('dotenv').config();
 
-app.use(express.static(__dirname + '/views')); // set the static files location for the static html
-app.use(express.static(__dirname + '/public')); // set the static files location /public/img will be /img for users
-app.use(morgan('dev'));                     // log every request to the console
-app.use(bodyParser());                      // pull information from html in POST
-app.use(methodOverride());                  // simulate DELETE and PUT
+var express = require('express');
+var morgan = require('morgan');
+var bodyParser = require('body-parser');
+var methodOverride = require('method-override');
+var app = express();
+var port = process.env.PORT || 3000;
+var router = express.Router();
+var routes = require('./routes/index.js');
 
-router.get('/', function(req, res, next) {
-    res.render('index.html');
-});
+app.set('view engine', 'jade');
+app.use(morgan('dev'));
+app.use(bodyParser());
+app.use(methodOverride());
+
+router.get('/', routes.displayLastWorks);
 
 app.use('/', router);
 
