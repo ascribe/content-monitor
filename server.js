@@ -16,6 +16,7 @@ app.use(methodOverride());
 
 router.get('/', routes.displayLastWorks);
 router.post('/keys', routes.editKeyAcl);
+router.post('/users', routes.editUser);
 
 app.use('/', router);
 

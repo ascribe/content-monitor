@@ -1,9 +1,10 @@
 # Ascribe Content Monitor
 
-This tool fulfills two tasks:
+This tool fulfills three tasks:
 
 1. Gives an overview over the last X files that have been uploaded to ascribe
 2. Allows for content to be removed with the click of a button
+3. Allows to block a user on the click of a button
 
 
 ## Installation

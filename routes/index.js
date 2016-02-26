@@ -31,3 +31,27 @@ exports.editKeyAcl = function(req, res, next) {
             res.send(400, err);
         });
 };
+
+
+exports.editUser = function(req, res, next) {
+    var email = req.body.email;
+    var active = req.body.active;
+
+    if(active === 'true') {
+        active = true;
+    } else if(active === 'false') {
+        active = false;
+    } else {
+        res.send(400, new Error('Don\'t be evil'));
+    }
+
+    pgctrl.qSetActiveForUser(email, active)
+        .then(function(data) {
+            console.log(data);
+            console.log('Changed User.is_active to ' + active);
+            res.redirect('/');
+        })
+        .catch(function(err) {
+            res.send(400, err);
+        });
+};

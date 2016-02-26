@@ -9,8 +9,9 @@ block content
                 tr
                     th Piece
                     th Title
-                    th Registered
                     th User
+                    th Block User
+                    th Registered
                     th Format
                     th S3 Key
                     th Private
@@ -21,9 +22,24 @@ block content
                         td: a(href='https://www.ascribe.io/app/pieces/' + piece.id + '/', target='_blank') Piece on Ascribe
                         td !{piece.title}
                         td !{piece.email}
+                        if piece.is_active
+                            td
+                                form(method='post', action='users')
+                                    input(type='hidden', name='email', value=piece.email)
+                                    input(type='hidden', name='active', value='false')
+                                    input(type='submit', value='Deactivate User')
+                        else
+                            td
+                                form(method='post', action='users')
+                                    input(type='hidden', name='email', value=piece.email)
+                                    input(type='hidden', name='active', value='true')
+                                    input(type='submit', value='Activate User')
                         td !{piece.datetime_registered}
-                        td
-                            !{piece.digital_work_file.split('.').pop()}
+                        if piece.digital_work_file.split('.').pop().length <= 4
+                            td
+                                !{piece.digital_work_file.split('.').pop()}
+                        else
+                            td.text unknown
                         td(style='padding-right:1em')
                             a(href='https://ascribe0.s3.amazonaws.com/' + piece.digital_work_file, target='_blank') Link to file
                         td
