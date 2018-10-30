@@ -1,6 +1,7 @@
 {
   "name": "ascribe-content-monitor",
   "version": "0.0.1",
+  "license": "LGPL-3.0",
   "private": true,
   "scripts": {
     "start": "node server.js"
